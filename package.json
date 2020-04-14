@@ -1,0 +1,70 @@
+{
+  "name": "@graphql/dispatcher",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "start": "gapi start --local --minify=false --inspect --iport 9229",
+    "build": "npx gapi build",
+    "introspect": "gapi schema introspect --collect-documents --collect-types",
+    "test": "jest --detectOpenHandles --forceExit",
+    "lint": "npx eslint ./src --ext .ts",
+    "lint-fix": "npx eslint ./src --fix --ext .ts"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run build && git add . && git commit --amend --no-edit"
+    }
+  },
+  "dependencies": {
+    "@gapi/core": "^1.8.33",
+    "@gapi/voyager": "^1.8.33",
+    "apollo-fetch": "^0.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/graphql": "^14.2.1",
+    "@types/hapi": "^18.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-simple-import-sort": "^5.0.0",
+    "husky": "^4.2.3",
+    "jest": "^24.9.0",
+    "prettier": "^2.0.4",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "html"
+    ],
+    "rootDir": "./",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "globals": {
+      "__DEV__": true
+    },
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "/src/.*\\.spec.(ts|tsx|js)$",
+    "verbose": true,
+    "collectCoverage": true
+  }
+}
