@@ -1,1 +1,0 @@
-{"name":"@graphql/dispatcher","bin":"./index.js","pkg":{"assets":["./protobuf/**/*","./protos/**/*","./protos.json","./operations.json"]}}

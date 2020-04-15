@@ -1,6 +1,7 @@
 import { CoreModule as GapiCoreModule, Module } from '@gapi/core';
 
 import { AppController } from './app.controller';
+import { AppPubsubController } from './app.pubsub.controller';
 import { CoreModule } from './core/core.moduile';
 
 @Module({
@@ -8,7 +9,7 @@ import { CoreModule } from './core/core.moduile';
     GapiCoreModule.forRoot({
       server: {
         hapi: {
-          port: 42042,
+          port: process.env.API_PORT || 42042,
         },
       },
       graphql: {
@@ -17,6 +18,6 @@ import { CoreModule } from './core/core.moduile';
     }),
     CoreModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AppPubsubController],
 })
 export class AppModule {}

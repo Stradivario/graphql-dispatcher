@@ -1,8 +1,9 @@
 import { Module } from '@gapi/core';
 
-import { RequestProvider } from './send-request';
+import { DockerService } from './services/docker.service';
+import { RequestProvider } from './services/send-request';
 
 @Module({
-  providers: [RequestProvider],
+  providers: [RequestProvider, DockerService],
 })
 export class CoreModule {}
