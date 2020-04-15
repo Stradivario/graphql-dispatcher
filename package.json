@@ -6,7 +6,7 @@
   "scripts": {
     "start": "gapi start --local --path='./src/index.ts' --minify=false --inspect --iport 9230",
     "build": "npx gapi build",
-    "build-prod": "npx ncc build ./src/index.ts",
+    "build-prod": "npx gapi build --single-executable",
     "introspect": "gapi schema introspect --collect-documents --collect-types",
     "test": "jest --detectOpenHandles --forceExit",
     "lint": "npx eslint ./src --ext .ts",
@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint && npm run build-prod && git add . && git commit --amend --no-edit"
+      "pre-push": "npm run lint"
     }
   },
   "dependencies": {
@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@types/graphql": "^14.2.1",
-    "@zeit/ncc": "^0.22.1",
     "@types/hapi": "^18.0.2",
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
