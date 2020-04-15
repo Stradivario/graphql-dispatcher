@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "start": "gapi start --local --minify=false --inspect --iport 9229",
+    "start": "gapi start --local --minify=false --inspect --iport 9230",
     "build": "npx gapi build",
     "introspect": "gapi schema introspect --collect-documents --collect-types",
     "test": "jest --detectOpenHandles --forceExit",
