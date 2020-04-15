@@ -1,6 +1,5 @@
 node_modules
 .cache
 *.js.map
-*.d.ts
 .packages
 coverage

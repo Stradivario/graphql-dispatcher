@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
 { # this ensures the entire script is downloaded #
-    sleep 20
-    source ~/.bashrc
-    nvm install 10.16.0
-    nvm use 10.16.0
+    sleep 40
     cd /root
     git clone https://github.com/Stradivario/graphql-dispatcher.git
     cd graphql-dispatcher
     npm install
-    node ./dist/main.js &
+    node ./dist/index.js &
 }
 # this ensures the entire script is downloaded #

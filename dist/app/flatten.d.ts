@@ -1,0 +1,11 @@
+export declare function flatten<T>(array: T[], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][][][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][][][][][][], depth?: number): Generator<T>;
+export declare function flatten<T>(array: T[][][][][][][][][][][], depth?: number): Generator<T>;
+export declare function flattenToArray<T>(array: T[]): T[];

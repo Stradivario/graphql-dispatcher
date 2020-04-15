@@ -1,4 +1,4 @@
-import { Controller, GraphQLControllerOptions, Query, Type } from '@gapi/core';
+import { Controller, GraphQLControllerOptions, Query } from '@gapi/core';
 import { spawn } from 'child_process';
 import {
   GraphQLBoolean,
