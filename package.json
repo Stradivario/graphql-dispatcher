@@ -20,27 +20,28 @@
       "pre-push": "npm run lint"
     }
   },
-  "dependencies": {
+  "devDependencies": {
     "@gapi/core": "^1.8.33",
     "@gapi/voyager": "^1.8.33",
-    "apollo-fetch": "^0.7.0"
-  },
-  "devDependencies": {
     "@types/graphql": "^14.2.1",
     "@types/hapi": "^18.0.2",
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "apollo-fetch": "^0.7.0",
     "async_hooks": "^1.0.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-simple-import-sort": "^5.0.0",
     "husky": "^4.2.3",
     "jest": "^24.9.0",
+    "node-emoji": "^1.10.0",
     "prettier": "^2.0.4",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "bufferutil": "^4.0.1"
   },
   "jest": {
     "testEnvironment": "node",

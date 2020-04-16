@@ -7,8 +7,10 @@ import {
 } from 'graphql';
 
 import { GenericCommandType } from '../app.types';
-import { executeCommand } from '../core/helpers';
-import { DockerService, StartDocker } from '../core/services/docker.service';
+import {
+  DockerService,
+  StartDockerArguments,
+} from '../core/services/docker.service';
 
 @Controller<GraphQLControllerOptions>({
   guards: [],
@@ -20,7 +22,7 @@ export class DockerController {
   constructor(private docker: DockerService) {}
 
   @Query({
-    name: {
+    specifier: {
       type: new GraphQLNonNull(GraphQLString),
     },
     password: {
@@ -36,7 +38,7 @@ export class DockerController {
       type: GraphQLBoolean,
     },
   })
-  async startDocker(root, args: StartDocker) {
+  async startDocker(root, args: StartDockerArguments) {
     return this.docker.start(args);
   }
 
@@ -64,17 +66,5 @@ export class DockerController {
     return {
       data: 'Server will stop in 2 seconds',
     };
-  }
-
-  @Query({
-    command: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    args: {
-      type: new GraphQLList(GraphQLString),
-    },
-  })
-  executeCommand(root, { command, args }: { args: string[]; command: string }) {
-    return executeCommand(command, args);
   }
 }

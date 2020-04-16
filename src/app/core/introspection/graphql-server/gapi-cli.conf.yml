@@ -1,0 +1,4 @@
+config:
+  schema:
+    introspectionEndpoint: http://localhost:9000/graphql
+    introspectionOutputFolder: ./

@@ -4,17 +4,24 @@ import { homedir } from 'os';
 import { Chmod, Docker, MakeDir } from '../../core/helpers';
 import { flattenToArray } from '../../shared/flatten';
 
-export interface StartDocker {
+export interface StartDockerArguments {
+  specifier: string;
   folder: string;
   password: string;
   ports: string[];
-  force: boolean;
+  force?: boolean;
 }
 
 @Injectable()
 export class DockerService {
   async start(
-    { folder, force, password, ports }: StartDocker = {} as StartDocker,
+    {
+      folder,
+      force,
+      password,
+      ports,
+      specifier,
+    }: StartDockerArguments = {} as StartDockerArguments,
   ) {
     const dockerPorts: string[] = flattenToArray(
       ports.map((p: string) => ['-p', p]) as never,
@@ -35,7 +42,7 @@ export class DockerService {
       'run',
       '--restart=always',
       '--name',
-      name || 'my-vs-code',
+      specifier || 'my-vs-code',
       '-e',
       `PASSWORD=${password}`,
       ...dockerPorts,
@@ -53,5 +60,9 @@ export class DockerService {
 
   rm(specifier: string) {
     return Docker(['rm', '-f', specifier]);
+  }
+
+  inspect(specifier: string) {
+    return Docker(['inspect', specifier]);
   }
 }
