@@ -2,7 +2,7 @@ import { Injectable } from '@gapi/core';
 import { homedir } from 'os';
 
 import { Chmod, Docker, MakeDir } from '../../core/helpers';
-import { flattenToArray } from '../../shared/flatten';
+import { flattenToArray } from '../helpers/flatten';
 
 export interface StartDockerArguments {
   specifier: string;
@@ -10,6 +10,7 @@ export interface StartDockerArguments {
   password: string;
   ports: string[];
   force?: boolean;
+  image?: string;
 }
 
 @Injectable()
@@ -21,6 +22,7 @@ export class DockerService {
       password,
       ports,
       specifier,
+      image,
     }: StartDockerArguments = {} as StartDockerArguments,
   ) {
     const dockerPorts: string[] = flattenToArray(
@@ -49,7 +51,7 @@ export class DockerService {
       '-v',
       `${projectFolder}:/home/coder/project`,
       '-d',
-      'rxdi/vs-code',
+      image || 'rxdi/vs-code',
       '--allow-http',
     ]);
   }
