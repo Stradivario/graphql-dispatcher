@@ -8,7 +8,7 @@ config:
       IS_NOT_LAMBDA: true
       IS_DAEMON_RUNNING: true
       IS_LOCAL_DEVELOPMENT: true
-      LINODE_CLI_TOKEN: 32d4b1d857b10ce8ede08d0a0c9bde573d718f517b73e04c159098c83d9cd3ad
+      LINODE_CLI_TOKEN: 52442dfsfsd
     prod:
       GOOGLE_APPLICATION_CREDENTIALS: ./graphql-server-9e3db.json
       IS_NOT_LAMBDA: false

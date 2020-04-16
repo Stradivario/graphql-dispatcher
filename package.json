@@ -29,7 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "apollo-fetch": "^0.7.0",
-    "async_hooks": "^1.0.0",
+    "bufferutil": "^4.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
@@ -41,7 +41,7 @@
     "prettier": "^2.0.4",
     "ts-jest": "^24.1.0",
     "typescript": "^3.8.3",
-    "bufferutil": "^4.0.1"
+    "ws": "^7.2.3"
   },
   "jest": {
     "testEnvironment": "node",

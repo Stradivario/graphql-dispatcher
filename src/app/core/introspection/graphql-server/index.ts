@@ -37,6 +37,8 @@ export interface IQuery {
   deleteStackScript?: IStackscriptType | null;
   listStackScripts?: IListStackScriptsType | null;
   findStackScripts?: IStackscriptType | null;
+  getMachines?: Array<IMachine> | null;
+  findMachineByIp?: IMachine | null;
 }
 
 export interface IStatusQueryType {
@@ -288,6 +290,14 @@ export interface IListStackScriptsType {
   results?: number | null;
 }
 
+export interface IMachine {
+  __typename?: 'Machine';
+  id?: string | null;
+  machineHash?: string | null;
+  networkInterfaces?: string | null;
+  webSocketKey?: string | null;
+}
+
 /**
     description?: Mutation type for all requests which will change persistent data
   */
@@ -311,6 +321,8 @@ export interface IMutation {
   revokeCLIToken?: ICLITokenType | null;
   publishSignal?: IRemotePubsubType | null;
   executeRemoteCommand?: IGenericReturn | null;
+  removeRemoteVsCodeEvent?: IGenericReturn | null;
+  startRemoteVsCodeEvent?: IGenericReturn | null;
   createLinode?: ILinodeInstanceType | null;
   deleteLinode?: ILinodeInstanceType | null;
   stopLinode?: ILinodeInstanceType | null;
@@ -331,11 +343,24 @@ export interface IRemotePubsubType {
   status?: string | null;
 }
 
-export type IInstanceCommandsTypeEnum = 'DOCKER_PS' | 'DOCKER_REMOVE';
+export type IInstanceCommandsTypeEnum = 'START_VS_CODE' | 'REMOVE_VS_CODE';
 
 export interface IGenericReturn {
   __typename?: 'GenericReturn';
   status?: string | null;
+}
+
+export interface IRemoveVsCodeInputArguments {
+  specifier?: string;
+}
+
+export interface IStartVsCodePayload {
+  specifier: string;
+  password: string;
+  folder: string;
+  ports: Array<string>;
+  force?: boolean | null;
+  image?: string | null;
 }
 
 export interface ILinodeCreateInstanceInputType {
