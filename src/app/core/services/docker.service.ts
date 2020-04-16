@@ -2,7 +2,7 @@ import { Injectable } from '@gapi/core';
 import { homedir } from 'os';
 
 import { Chmod, Docker, MakeDir } from '../../core/helpers';
-import { flattenToArray } from '../../flatten';
+import { flattenToArray } from '../../shared/flatten';
 
 export interface StartDocker {
   folder: string;

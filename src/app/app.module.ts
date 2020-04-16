@@ -1,23 +1,16 @@
-import { CoreModule as GapiCoreModule, Module } from '@gapi/core';
+import { Module } from '@gapi/core';
 
-import { AppController } from './app.controller';
-import { AppPubsubController } from './app.pubsub.controller';
+import { AppFrameModule } from './app.frame';
 import { CoreModule } from './core/core.moduile';
+import { DockerModule } from './docker/docker.module';
+import { PubSubModule } from './pubsub/pubsub.module';
 
 @Module({
   imports: [
-    GapiCoreModule.forRoot({
-      server: {
-        hapi: {
-          port: process.env.API_PORT || 42042,
-        },
-      },
-      graphql: {
-        openBrowser: false,
-      },
-    }),
+    AppFrameModule.forRoot(process.env.API_PORT || 42042),
     CoreModule,
+    PubSubModule,
+    DockerModule,
   ],
-  controllers: [AppController, AppPubsubController],
 })
 export class AppModule {}

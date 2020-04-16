@@ -6,15 +6,15 @@ import {
   GraphQLString,
 } from 'graphql';
 
-import { GenericCommandType } from './app.types';
-import { executeCommand } from './core/helpers';
-import { DockerService, StartDocker } from './core/services/docker.service';
+import { GenericCommandType } from '../app.types';
+import { executeCommand } from '../core/helpers';
+import { DockerService, StartDocker } from '../core/services/docker.service';
 
 @Controller<GraphQLControllerOptions>({
   guards: [],
   type: GenericCommandType,
 })
-export class AppController {
+export class DockerController {
   stoppedListener: NodeJS.Timeout;
 
   constructor(private docker: DockerService) {}
