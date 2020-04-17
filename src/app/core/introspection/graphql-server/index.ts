@@ -290,12 +290,15 @@ export interface IListStackScriptsType {
   results?: number | null;
 }
 
+export type IWorkersEnum = 'vscode' | 'runner';
+
 export interface IMachine {
   __typename?: 'Machine';
   id?: string | null;
   machineHash?: string | null;
   networkInterfaces?: string | null;
   webSocketKey?: string | null;
+  worker_type?: IWorkersEnum | null;
 }
 
 /**
@@ -320,14 +323,15 @@ export interface IMutation {
   generateCLIToken?: ICLITokenType | null;
   revokeCLIToken?: ICLITokenType | null;
   publishSignal?: IRemotePubsubType | null;
-  executeRemoteCommand?: IGenericReturn | null;
-  removeRemoteVsCodeEvent?: IGenericReturn | null;
-  startRemoteVsCodeEvent?: IGenericReturn | null;
   createLinode?: ILinodeInstanceType | null;
   deleteLinode?: ILinodeInstanceType | null;
   stopLinode?: ILinodeInstanceType | null;
   startLinode?: ILinodeInstanceType | null;
   createStackScript?: IStackscriptType | null;
+  executeRemoteVsCodeCommand?: IGenericReturn | null;
+  removeRemoteVsCodeEvent?: IGenericReturn | null;
+  startRemoteVsCodeEvent?: IGenericReturn | null;
+  cloneProjectWorkerEvent?: IGenericReturn | null;
 }
 
 export interface ICLITokenType {
@@ -341,26 +345,6 @@ export interface ICLITokenType {
 export interface IRemotePubsubType {
   __typename?: 'RemotePubsubType';
   status?: string | null;
-}
-
-export type IInstanceCommandsTypeEnum = 'START_VS_CODE' | 'REMOVE_VS_CODE';
-
-export interface IGenericReturn {
-  __typename?: 'GenericReturn';
-  status?: string | null;
-}
-
-export interface IRemoveVsCodeInputArguments {
-  specifier?: string;
-}
-
-export interface IStartVsCodePayload {
-  specifier: string;
-  password: string;
-  folder: string;
-  ports: Array<string>;
-  force?: boolean | null;
-  image?: string | null;
 }
 
 export interface ILinodeCreateInstanceInputType {
@@ -391,6 +375,30 @@ export interface IStackcsriptInputType {
   images: Array<string>;
 }
 
+export type IInstanceCommandsEnum = 'START_VS_CODE' | 'REMOVE_VS_CODE';
+
+export interface IGenericReturn {
+  __typename?: 'GenericReturn';
+  status?: string | null;
+}
+
+export interface IRemoveVsCodeInputArguments {
+  specifier?: string;
+}
+
+export interface IStartVsCodePayload {
+  specifier: string;
+  password: string;
+  folder: string;
+  ports: Array<string>;
+  force?: boolean | null;
+  image?: string | null;
+}
+
+export interface ICloneProjectWorkerPayload {
+  specifier?: string;
+}
+
 /**
     description?: Subscription type for all subscriptions via pub sub
   */
@@ -400,6 +408,7 @@ export interface ISubscription {
   subscribeToCreateTeam?: ITeamType | null;
   notifications?: INotificationsType | null;
   registerInstance?: IInstanceConnectionType | null;
+  registerWorker?: IInstanceConnectionType | null;
 }
 
 export interface INotificationsType {

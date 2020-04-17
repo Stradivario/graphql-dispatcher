@@ -5,7 +5,9 @@ import { createHash } from 'crypto';
 import { networkInterfaces } from 'os';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 
+import { Environment } from '../../app.constants';
 import { InstanceCommands, InstanceCommandsEnum } from '../../commands';
 import { ISubscription } from '../introspection/graphql-server';
 
@@ -19,8 +21,28 @@ const machineHash = createHash('md5')
 export class SubscriptionService {
   subscription: Subscription;
   currentSubscriptionUri: string;
-  subscribe(uri: string) {
+  link: WebSocketLink;
+  constructor() {
+    if (Environment.SUBSCRIPTION_URI) {
+      this.subscribe(Environment.SUBSCRIPTION_URI, Environment.SECRET_KEY);
+    }
+  }
+  subscribe(uri: string, authorization?: string) {
+    this.unsubscribe();
     this.currentSubscriptionUri = uri;
+    this.link = new WebSocketLink({
+      uri,
+      options: {
+        connectionParams: {
+          authorization,
+          machineHash,
+          worker_type: 'vscode',
+          networkInterfaces: JSON.stringify(networkInterfaces()),
+        },
+        reconnect: true,
+      },
+      webSocketImpl,
+    });
     this.subscription = subscribeToTopic<{
       data: ISubscription;
     }>(
@@ -35,18 +57,7 @@ export class SubscriptionService {
       {
         machineHash,
       },
-      new WebSocketLink({
-        uri,
-        options: {
-          connectionParams: {
-            authorization: 'omg',
-            machineHash,
-            networkInterfaces: JSON.stringify(networkInterfaces()),
-          },
-          reconnect: true,
-        },
-        webSocketImpl,
-      }),
+      this.link,
     )
       .pipe(map(({ data }) => data.registerInstance))
       .subscribe(async ({ args, command }) => {
@@ -60,6 +71,12 @@ export class SubscriptionService {
   }
 
   unsubscribe() {
+    if (this.link) {
+      const subscriptionClient = this.link[
+        'subscriptionClient'
+      ] as SubscriptionClient;
+      subscriptionClient.close();
+    }
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
