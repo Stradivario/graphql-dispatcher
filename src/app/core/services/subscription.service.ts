@@ -17,7 +17,9 @@ const machineHash = createHash('md5')
   .update(JSON.stringify(networkInterfaces()))
   .digest('base64');
 
-@Injectable()
+@Injectable({
+  init: true,
+})
 export class SubscriptionService {
   subscription: Subscription;
   currentSubscriptionUri: string;
