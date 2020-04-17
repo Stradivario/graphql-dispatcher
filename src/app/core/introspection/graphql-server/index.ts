@@ -331,7 +331,7 @@ export interface IMutation {
   executeRemoteVsCodeCommand?: IGenericReturn | null;
   removeRemoteVsCodeEvent?: IGenericReturn | null;
   startRemoteVsCodeEvent?: IGenericReturn | null;
-  cloneProjectWorkerEvent?: IGenericReturn | null;
+  executeRemoteWorkerCommand?: IGenericReturn | null;
 }
 
 export interface ICLITokenType {
@@ -395,9 +395,7 @@ export interface IStartVsCodePayload {
   image?: string | null;
 }
 
-export interface ICloneProjectWorkerPayload {
-  specifier?: string;
-}
+export type IWorkerCommandsEnum = 'GIT' | 'NPM' | 'DOCKER' | 'DOCKER_COMPOSE';
 
 /**
     description?: Subscription type for all subscriptions via pub sub
@@ -420,6 +418,7 @@ export interface IInstanceConnectionType {
   __typename?: 'InstanceConnectionType';
   command?: number | null;
   args?: string | null;
+  cwd?: string | null;
 }
 
 export type ILanguageCodeEnum = 'EN' | 'FR' | 'BG';

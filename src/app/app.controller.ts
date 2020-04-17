@@ -91,11 +91,11 @@ export class AppController {
   }
 
   @Query({
-    identifier: {
+    specifier: {
       type: new GraphQLNonNull(GraphQLString),
     },
   })
-  inspectDocker(root, { identifier }) {
-    return this.docker.inspect(identifier);
+  inspectDocker(root, { specifier }) {
+    return this.docker.inspect(specifier);
   }
 }

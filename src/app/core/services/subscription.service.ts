@@ -16,7 +16,10 @@ const webSocketImpl = require('ws');
 const machineHash = createHash('md5')
   .update(JSON.stringify(networkInterfaces()))
   .digest('base64');
-
+export enum Workers {
+  vscode = 1,
+  runner = 2,
+}
 @Injectable({
   init: true,
 })
@@ -38,7 +41,7 @@ export class SubscriptionService {
         connectionParams: {
           authorization,
           machineHash,
-          worker_type: 'vscode',
+          worker_type: Workers[Workers.vscode],
           networkInterfaces: JSON.stringify(networkInterfaces()),
         },
         reconnect: true,

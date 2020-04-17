@@ -3572,7 +3572,7 @@
               "deprecationReason": null
             },
             {
-              "name": "cloneProjectWorkerEvent",
+              "name": "executeRemoteWorkerCommand",
               "description": null,
               "args": [
                 {
@@ -3590,12 +3590,30 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "command",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "WorkerCommands",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "args",
                   "description": null,
                   "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "CloneProjectWorkerPayload",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
                   },
                   "defaultValue": null
                 }
@@ -4165,28 +4183,38 @@
           "possibleTypes": null
         },
         {
-          "kind": "INPUT_OBJECT",
-          "name": "CloneProjectWorkerPayload",
+          "kind": "ENUM",
+          "name": "WorkerCommands",
           "description": null,
           "fields": null,
-          "inputFields": [
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
             {
-              "name": "specifier",
+              "name": "GIT",
               "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NPM",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DOCKER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DOCKER_COMPOSE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
-          "interfaces": null,
-          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -4332,6 +4360,18 @@
             },
             {
               "name": "args",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cwd",
               "description": null,
               "args": [],
               "type": {

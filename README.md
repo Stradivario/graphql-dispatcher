@@ -37,7 +37,11 @@ chmod +x dispatcher-linux
 Connect it to pubsub server
 
 ```bash
-./dispatcher-linux --wss  wss://my-graphql-server/subscriptions
+./dispatcher-linux --wss  wss://my-graphql-server/subscriptions --secret mySecretToken
+```
+
+```bash
+./dispatcher-linux --port 42042 --graphiql true
 ```
 
 ### Environment variables
@@ -58,4 +62,104 @@ Graphql Pubsub API_PORT (When Secret and subscription uri are provided API is re
 
 ```bash
 API_PORT='42042';
+```
+
+### Subscriptions query which this machine is subscribed
+
+```graphql
+subscription($machineHash: String!) {
+  registerInstance(machineHash: $machineHash) {
+    command
+    args
+  }
+}
+```
+
+### Server subscription endpoint
+
+```ts
+  @Type(
+    new GraphQLObjectType({
+      name: 'InstanceConnectionType',
+      fields: {
+        command: {
+          type: GraphQLInt,
+        },
+        args: {
+          type: GraphQLString,
+        },
+      },
+    }),
+  )
+  @Subscribe(
+    withFilter(
+      (self: InstanceController) =>
+        self.pubsub.asyncIterator(InstanceCommandsChannel),
+      async (event: InstanceEventType, unk, args: InstanceEventType) => {
+        if (args.machineHash === event.machineHash) {
+          console.log(
+            `
+[RegisterInstance]
+  NetworkInterfaces:
+  MachineHash: "${args.machineHash}"
+  Event: "instance-notification"
+  Command: ${InstanceCommandsEnum[event.command]}
+  Arguments: ${event.args}
+[RegisterInstance]
+            `,
+          );
+        }
+        return args.machineHash === event.machineHash;
+      },
+    ),
+  )
+  @Subscription({
+    machineHash: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  })
+  registerInstance(event: InstanceEventType) {
+    return event;
+  }
+
+```
+
+### Visual Studio Code endpoints
+
+```graphql
+query listDockerContainers {
+  listDockerContainers {
+    code
+    data
+    error
+  }
+}
+query inspectDocker {
+  inspectDocker(specifier: "my-vs-code") {
+    code
+    data
+    error
+  }
+}
+
+query startVsCode {
+  startVsCode(
+    specifier: "my-vs-code"
+    ports: ["9000:9000", "80:8443"]
+    password: "12345"
+    folder: "project"
+  ) {
+    code
+    data
+    error
+  }
+}
+
+query removeVsCode {
+  removeVsCode(specifier: "my-vs-code") {
+    code
+    data
+    error
+  }
+}
 ```

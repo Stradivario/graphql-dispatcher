@@ -1,17 +1,5 @@
-import {
-  GraphQLEnumType,
-  GraphQLInt,
-  GraphQLObjectType,
-  GraphQLString,
-} from 'graphql';
-export const RGBType = new GraphQLEnumType({
-  name: 'RGB',
-  values: {
-    RED: { value: 0 },
-    GREEN: { value: 1 },
-    BLUE: { value: 2 },
-  },
-});
+import { GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
+
 export const GenericCommandType = new GraphQLObjectType({
   name: 'GenericCommandType',
   fields: {
@@ -23,9 +11,6 @@ export const GenericCommandType = new GraphQLObjectType({
     },
     error: {
       type: GraphQLString,
-    },
-    test: {
-      type: RGBType,
     },
   },
 });
