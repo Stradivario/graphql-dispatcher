@@ -1,4 +1,10 @@
-type Commands = '--wss' | '--secret' | '--port' | '--random-port';
+type Commands =
+  | '--wss'
+  | '--secret'
+  | '--port'
+  | '--random-port'
+  | '--graphiql';
+
 export const includes = (i: Commands) => process.argv.toString().includes(i);
 export const nextOrDefault = (
   i: Commands,
@@ -17,11 +23,13 @@ export const nextOrDefault = (
   }
   return fb;
 };
-console.log(nextOrDefault('--port', false));
+
 export const Environment = {
   SUBSCRIPTION_URI:
     process.env.GRAPHQL_RUNNER_SUBSCRIPTION_URI || nextOrDefault('--wss', ''),
   SECRET_KEY:
     process.env.GRAPHQL_RUNNER_SECRET_KEY || nextOrDefault('--secret', ''),
   API_PORT: process.env.API_PORT || nextOrDefault('--port', '42042'),
+  RANDOM_PORT: process.env.RANDOM_PORT || includes('--random-port'),
+  GRAPHIQL: process.env.GRAPHIQL || includes('--graphiql'),
 };

@@ -6,7 +6,7 @@ import { AppFrameModule } from './app.frame';
 import { CoreModule } from './core/core.moduile';
 
 @Module({
-  imports: [AppFrameModule.forRoot(Environment.API_PORT), CoreModule],
+  imports: [AppFrameModule.forRoot(), CoreModule],
   controllers: Environment.SUBSCRIPTION_URI ? [] : [AppController],
 })
 export class AppModule {}

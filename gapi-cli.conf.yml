@@ -8,9 +8,9 @@ config:
       IS_NOT_LAMBDA: true
       IS_DAEMON_RUNNING: true
       IS_LOCAL_DEVELOPMENT: true
-      LINODE_CLI_TOKEN: 52442dfsfsd
+      GRAPHIQL: true
       SUBSCRIPTION_URI: ''
-      SECRET_KEY: 'omg'
+      SECRET_KEY: ''
     prod:
       GOOGLE_APPLICATION_CREDENTIALS: ./graphql-server-9e3db.json
       IS_NOT_LAMBDA: false
