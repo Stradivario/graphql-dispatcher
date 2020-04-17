@@ -38,7 +38,7 @@ export class DockerService {
         );
       }
     }
-    await Chmod(['-R', '755', projectFolder]);
+    await Chmod(['-R', '777', projectFolder]);
 
     return Docker([
       'run',
