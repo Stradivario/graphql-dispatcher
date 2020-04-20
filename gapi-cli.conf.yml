@@ -1,20 +1,24 @@
 config:
-  schematics:
-    name: @rxdi/schematics
-    dryRun: false
   app:
     local:
-      GOOGLE_APPLICATION_CREDENTIALS: ./graphql-server-9e3db.json
-      IS_NOT_LAMBDA: true
-      IS_DAEMON_RUNNING: true
-      IS_LOCAL_DEVELOPMENT: true
-      GRAPHIQL: true
-      GRAPHQL_RUNNER_SUBSCRIPTION_URI: '' # ws://localhost:9000/subscriptions
-      GRAPHQL_RUNNER_SECRET_KEY: 1234a
+      GRAPHQL_RUNNER_SUBSCRIPTION_URI: ''
+      GRAPHQL_RUNNER_API_PORT: 42042
+      GRAPHQL_RUNNER_GRAPHIQL: true
+      GRAPHQL_RUNNER_SEND_RETURN_RESPONSE: true
+      GRAPHQL_RUNNER_TYPE: vscode
+      GRAPHQL_RUNNER_SECRET: ''
+    server:
+      GRAPHQL_RUNNER_SUBSCRIPTION_URI: 'ws://localhost:9000/subscriptions'
+      GRAPHQL_RUNNER_API_PORT: 42042
+      GRAPHQL_RUNNER_GRAPHIQL: true
+      GRAPHQL_RUNNER_SEND_RETURN_RESPONSE: true
+      GRAPHQL_RUNNER_TYPE: vscode
+      GRAPHQL_RUNNER_SECRET: ''
     prod:
-      GOOGLE_APPLICATION_CREDENTIALS: ./graphql-server-9e3db.json
-      IS_NOT_LAMBDA: false
-
+      GRAPHQL_RUNNER_SUBSCRIPTION_URI: 'wss://pubsub.graphql-server.com/subscriptions'
+      GRAPHQL_RUNNER_SEND_RETURN_RESPONSE: true
+      GRAPHQL_RUNNER_TYPE: vscode
+      GRAPHQL_RUNNER_SECRET: ''
   schema:
     introspectionEndpoint: http://localhost:9000/graphql
     introspectionOutputFolder: ./src/app/core/api-introspection

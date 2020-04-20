@@ -2,72 +2,27 @@
   "name": "@graphql/dispatcher",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "Cloud Functions for Firebase",
+  "description": "Graphql Runner",
   "scripts": {
-    "start": "gapi start --local --path='./src/index.ts' --minify=false --inspect --iport 9230",
-    "build": "npx gapi build",
-    "build-prod": "npx gapi build --single-executable",
-    "introspect": "gapi schema introspect --collect-documents --collect-types",
-    "test": "jest --detectOpenHandles --forceExit",
+    "start": "gapi start --local --minify=false --inspect --iport 9230",
+    "build": "npx gapi build --single-executable",
     "lint": "npx eslint ./src --ext .ts",
     "lint-fix": "npx eslint ./src --fix --ext .ts"
   },
   "engines": {
     "node": "10"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
-  },
   "devDependencies": {
-    "@gapi/core": "^1.8.33",
-    "@gapi/voyager": "^1.8.33",
+    "@gapi/core": "^1.8.51",
+    "@gapi/cli-builder": "^1.8.51",
     "@types/graphql": "^14.2.1",
-    "@types/hapi": "^18.0.2",
-    "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
-    "apollo-fetch": "^0.7.0",
-    "bufferutil": "^4.0.1",
-    "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-simple-import-sort": "^5.0.0",
-    "husky": "^4.2.3",
-    "jest": "^24.9.0",
-    "node-emoji": "^1.10.0",
     "prettier": "^2.0.4",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.8.3",
-    "ws": "^7.2.3"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "html"
-    ],
-    "rootDir": "./",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "node"
-    ],
-    "globals": {
-      "__DEV__": true
-    },
-    "transform": {
-      "\\.(ts|tsx)$": "ts-jest"
-    },
-    "testRegex": "/src/.*\\.spec.(ts|tsx|js)$",
-    "verbose": true,
-    "collectCoverage": true
+    "typescript": "^3.8.3"
   }
 }

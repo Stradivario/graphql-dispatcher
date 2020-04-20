@@ -44,6 +44,12 @@ Connect it to pubsub server
 ./dispatcher-linux --port 42042 --graphiql true
 ```
 
+Define Type of runner
+
+```bash
+./dist/dispatcher-linux --wss wss://my-graphql-server/subscriptions --runner-type runner
+```
+
 ### Environment variables
 
 Graphql Pubsub Uri
@@ -61,7 +67,7 @@ GRAPHQL_RUNNER_SECRET_KEY='Bareer my-token';
 Graphql Pubsub API_PORT (When Secret and subscription uri are provided API is removed from application)
 
 ```bash
-API_PORT='42042';
+GRAPHQL_RUNNER_API_PORT='42042';
 ```
 
 ### Subscriptions query which this machine is subscribed
