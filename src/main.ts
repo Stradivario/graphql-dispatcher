@@ -2,11 +2,13 @@ import {
   Bootstrap,
   CLIBuilder,
   Environment,
+  executeCommand,
   machineHash,
   ProcessReturn,
 } from '@gapi/cli-builder';
 import { Module } from '@gapi/core';
 import { gql } from 'apollo-server-core';
+import { homedir } from 'os';
 
 import { AppController } from './app.controller';
 import {
@@ -18,6 +20,8 @@ import {
 export enum Commands {
   START_VS_CODE = 1,
   STOP_VS_CODE = 2,
+  CLONE_PROJECT = 3,
+  REMOVE_PROJECT = 4,
 }
 
 @Module({
@@ -34,6 +38,27 @@ export enum Commands {
           console.log('[RUN_NPM]: started arguments: ', specifier);
           const data = await StopVsCode(specifier);
           console.log('[RUN_NPM]: exited');
+          return data;
+        },
+        CLONE_PROJECT: async ({
+          folder,
+          repo,
+        }: {
+          folder: string;
+          repo: string;
+        }) => {
+          console.log('[CLONE_PROJECT]: started arguments: ', repo, folder);
+          const data = await executeCommand('git', ['clone', repo, folder], {
+            cwd: homedir(),
+          });
+          console.log('[CLONE_PROJECT]: exited');
+          return data;
+        },
+        REMOVE_PROJECT: async ({ folder }: { folder: string }) => {
+          const projectFolder = `${homedir()}/${folder}`;
+          console.log('[REMOVE_PROJECT]: started arguments: ', folder);
+          const data = await executeCommand('rm', ['-rf', projectFolder]);
+          console.log('[REMOVE_PROJECT]: exited');
           return data;
         },
       },
