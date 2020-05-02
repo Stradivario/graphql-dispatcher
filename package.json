@@ -13,8 +13,8 @@
     "node": "10"
   },
   "devDependencies": {
-    "@gapi/core": "^1.8.66",
-    "@gapi/cli-builder": "^1.8.66",
+    "@gapi/core": "^1.8.67",
+    "@gapi/cli-builder": "^1.8.67",
     "@types/graphql": "^14.2.1",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
