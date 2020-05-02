@@ -41,8 +41,8 @@ export enum Commands {
       {
         subscription: {
           query: gql`
-            subscription($machineHash: String!) {
-              registerInstance(machineHash: $machineHash) {
+            subscription($machineHash: String!, $label: String!) {
+              registerInstance(machineHash: $machineHash, label: $label) {
                 command
                 args
                 cwd
@@ -51,6 +51,7 @@ export enum Commands {
           `,
           variables: {
             machineHash,
+            label: Environment.LABEL,
           },
           map: (i) => i.registerInstance,
         },
