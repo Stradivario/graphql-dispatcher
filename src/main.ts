@@ -66,7 +66,7 @@ export enum Commands {
       {
         subscription: {
           query: gql`
-            subscription($machineHash: String!, $label: String!) {
+            subscription($machineHash: String, $label: String) {
               registerInstance(machineHash: $machineHash, label: $label) {
                 command
                 args
@@ -83,11 +83,13 @@ export enum Commands {
         status: {
           query: gql`
             mutation notifyMachineResult(
-              $machineHash: String!
-              $data: String!
+              $label: String
+              $machineHash: String
+              $data: String
               $error: String
             ) {
               notifyMachineResult(
+                label: $label
                 machineHash: $machineHash
                 data: $data
                 error: $error
