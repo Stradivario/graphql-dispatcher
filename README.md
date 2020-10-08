@@ -47,7 +47,7 @@ Connect it to pubsub server
 Define Type of runner
 
 ```bash
-./dist/dispatcher-linux --wss wss://my-graphql-server/subscriptions --runner-type runner
+./dispatcher-linux --wss wss://my-graphql-server/subscriptions --runner-type runner
 ```
 
 ### Environment variables

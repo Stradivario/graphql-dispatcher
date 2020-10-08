@@ -1,6 +1,5 @@
 import { Controller, GraphQLControllerOptions, Query } from '@gapi/core';
 import {
-  GraphQLBoolean,
   GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
@@ -45,9 +44,6 @@ export class AppController {
     },
     ports: {
       type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
-    },
-    force: {
-      type: GraphQLBoolean,
     },
     image: {
       type: GraphQLString,
