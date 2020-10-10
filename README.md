@@ -151,7 +151,7 @@ query inspectDocker {
 query startVsCode {
   startVsCode(
     specifier: "my-vs-code"
-    ports: ["9000:9000", "80:8443"]
+    ports: ["9000:9000", "80:8080"]
     password: "12345"
     folder: "project"
   ) {

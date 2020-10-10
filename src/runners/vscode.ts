@@ -37,19 +37,18 @@ export async function StartVsCode(
     throw new Error(e);
   }
   await Chmod(['-R', '777', projectFolder]);
-
+  // docker run -it -p 127.0.0.1:8080:8080 -v "$PWD:/home/coder/project"  -u "$(id -u):$(id -g)"  --env PASSWORD=4 rxdi/vs-code
   return Docker([
     'run',
     '--restart=always',
     '--name',
     specifier || 'my-vs-code',
-    '-e',
-    `PASSWORD=${password}`,
     ...dockerPorts,
     '-v',
     `${projectFolder}:/home/coder/project`,
     '-d',
-    image || 'rxdi/vs-code',
-    '--allow-http',
+    '--env',
+    `PASSWORD=${password}`,
+    image || 'rxdi/vs-code:latest',
   ]);
 }
