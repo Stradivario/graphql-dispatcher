@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mkdirp } from '@rxdi/core/dist/services/file/dist';
 import { homedir } from 'os';
 import { promisify } from 'util';
@@ -11,6 +12,9 @@ export interface StartDockerArguments {
   password: string;
   ports: string[];
   image?: string;
+  graphqlServerJson?: string;
+  vsCodeSyncLocalSettings?: string;
+  vsCodeSettings?: string;
 }
 const mkdir: (path: string, fn: (e) => void) => void = mkdirp;
 
@@ -25,6 +29,9 @@ export async function StartVsCode(
     ports,
     specifier,
     image,
+    graphqlServerJson,
+    vsCodeSettings,
+    vsCodeSyncLocalSettings,
   }: StartDockerArguments = {} as StartDockerArguments,
 ) {
   const dockerPorts: string[] = flattenToArray(
@@ -49,6 +56,12 @@ export async function StartVsCode(
     '-d',
     '--env',
     `PASSWORD=${password}`,
+    '--env',
+    `VS_CODE_SETTINGS='${vsCodeSettings}'`,
+    '--env',
+    `SYNC_LOCAL_SETTINGS='${vsCodeSyncLocalSettings}'`,
+    '--env',
+    `GRAPHQL_SERVER_JSON='${graphqlServerJson}'`,
     image || 'rxdi/vs-code:latest',
   ]);
 }
