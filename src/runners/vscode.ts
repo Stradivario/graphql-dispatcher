@@ -55,13 +55,13 @@ export async function StartVsCode(
     `${projectFolder}:/home/coder/project`,
     '-d',
     '--env',
-    `PASSWORD=${password}`,
+    `PASSWORD=${password || ''}`,
     '--env',
-    `VS_CODE_SETTINGS='${vsCodeSettings}'`,
+    `VS_CODE_SETTINGS='${vsCodeSettings || ''}'`,
     '--env',
-    `SYNC_LOCAL_SETTINGS='${vsCodeSyncLocalSettings}'`,
+    `SYNC_LOCAL_SETTINGS='${vsCodeSyncLocalSettings || ''}'`,
     '--env',
-    `GRAPHQL_SERVER_JSON='${graphqlServerJson}'`,
+    `GRAPHQL_SERVER_JSON='${graphqlServerJson || ''}'`,
     image || 'rxdi/vs-code:latest',
   ]);
 }
