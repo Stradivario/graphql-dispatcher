@@ -15,6 +15,8 @@ export interface StartDockerArguments {
   graphqlServerJson?: string;
   vsCodeSyncLocalSettings?: string;
   vsCodeSettings?: string;
+  owner?: string;
+  repoName?: string;
 }
 const mkdir: (path: string, fn: (e) => void) => void = mkdirp;
 
@@ -32,6 +34,8 @@ export async function StartVsCode(
     graphqlServerJson,
     vsCodeSettings,
     vsCodeSyncLocalSettings,
+    owner,
+    repoName,
   }: StartDockerArguments = {} as StartDockerArguments,
 ) {
   const dockerPorts: string[] = flattenToArray(
@@ -45,6 +49,10 @@ export async function StartVsCode(
   }
   await Chmod(['-R', '777', projectFolder]);
   // docker run -it -p 127.0.0.1:8080:8080 -v "$PWD:/home/coder/project"  -u "$(id -u):$(id -g)"  --env PASSWORD=4 rxdi/vs-code
+  let graphqlJson: { token: string };
+  try {
+    graphqlJson = JSON.parse(graphqlServerJson);
+  } catch (e) {}
   return Docker([
     'run',
     '--restart=always',
@@ -62,6 +70,12 @@ export async function StartVsCode(
     `SYNC_LOCAL_SETTINGS=${vsCodeSyncLocalSettings || ''}`,
     '--env',
     `GRAPHQL_SERVER_JSON=${graphqlServerJson || ''}`,
+    '--env',
+    `GITHUB_TOKEN=${graphqlJson ? graphqlJson.token : ''}`,
+    '--env',
+    `OWNER=${owner ? owner : ''}`,
+    '--env',
+    `REPO=${repoName ? repoName : ''}`,
     image || 'rxdi/vs-code:latest',
   ]);
 }
